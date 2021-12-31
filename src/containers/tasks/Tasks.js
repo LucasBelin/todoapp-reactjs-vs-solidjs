@@ -1,55 +1,49 @@
-import React, { useState, useEffect } from "react"
+import React, { useMemo } from "react"
 import { useToggle } from "../../custom-hooks"
 import { Task } from "../../components"
 import { BsChevronDown } from "react-icons/bs"
 
 function Tasks({ data, toggleTask }) {
-  const [accents, setAccents] = useState([])
-  const [tasks, setTasks] = useState([])
   const [showCompleted, toggleShowCompleted] = useToggle(true)
   const [sortByMostRecent, toggleSortByMostRecent] = useToggle(true)
 
-  useEffect(() => {
-    setAccents(getAccents())
-    setTasks(getTasks())
-    // eslint-disable-next-line
-  }, [data, showCompleted, sortByMostRecent])
-
-  function getAccentFromId(categoryId) {
-    return accents.find((accent) => accent.id === categoryId).accent
-  }
-
-  function getAccents() {
-    const accents = []
+  const tasks = useMemo(() => {
+    let filteredTasks = []
     data.forEach((category) => {
-      accents.push({ id: category.id, accent: category.accent })
-    })
-    return accents
-  }
-
-  function getTasks() {
-    let tasks = []
-    data.forEach((category) => {
-      tasks.push(...category.tasks)
+      filteredTasks.push(...category.tasks)
     })
 
     if (!showCompleted) {
-      tasks = tasks.filter((task) => !task.completed)
+      filteredTasks = filteredTasks.filter((task) => !task.completed)
     }
 
     if (sortByMostRecent) {
-      tasks.sort((a, b) => {
+      filteredTasks.sort((a, b) => {
         return new Date(a.date) - new Date(b.date)
       })
     }
 
     if (!sortByMostRecent) {
-      tasks.sort((a, b) => {
+      filteredTasks.sort((a, b) => {
         return new Date(b.date) - new Date(a.date)
       })
     }
 
-    return tasks
+    return filteredTasks
+  }, [data, showCompleted, sortByMostRecent])
+
+  const accents = useMemo(() => {
+    const arr = []
+    data.forEach((category) => {
+      arr.push({ id: category.id, accent: category.accent })
+    })
+    return arr
+  }, [data])
+
+  function getAccentFromId(categoryId) {
+    const category = accents.find((accent) => accent.id === categoryId)
+    if (!category) return "#fff"
+    return category.accent
   }
 
   return (
