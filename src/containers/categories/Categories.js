@@ -2,7 +2,13 @@ import React from "react"
 import { Category } from "../../components"
 import { AiOutlinePlus } from "react-icons/ai"
 
-function Categories({ data }) {
+function Categories({ data, setData }) {
+  function updateCategory(category) {
+    const categoryIdx = data.findIndex((cat) => cat.id === category.id)
+    data[categoryIdx] = category
+    setData([...data])
+  }
+
   return (
     <div className="flex flex-col self-stretch">
       <div className="flex justify-between items-center">
@@ -19,7 +25,16 @@ function Categories({ data }) {
 
       <div className="overflow-x-scroll h-32 flex gap-4 items-center">
         {data.map((category) => {
-          return <Category key={category.id} id={category.id} name={category.name} tasks={[...category.tasks]} accent={category.accent} />
+          return (
+            <Category
+              key={category.id}
+              id={category.id}
+              name={category.name}
+              tasks={[...category.tasks]}
+              accent={category.accent}
+              updateCategory={updateCategory}
+            />
+          )
         })}
       </div>
     </div>

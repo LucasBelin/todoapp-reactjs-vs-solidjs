@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react"
+
+import { getNextAccent } from "../../utils"
+
 import { ProgressBar } from ".."
 
 const PROGRESS_BAR_START_PX = 17
 const PROGRESS_BAR_END_PX = 170
 const PROGRESS_BAR_START_PERCENT = 0
 
-function Category({ id, name, accent, tasks }) {
+function Category({ id, name, accent, tasks, updateCategory }) {
   const [taskCount, setTaskCount] = useState(tasks.length)
   const [taskCompletedCount, setTaskCompletedCount] = useState(tasks.filter((task) => task.completed).length)
 
@@ -39,9 +42,15 @@ function Category({ id, name, accent, tasks }) {
     return Math.max(PROGRESS_BAR_START_PX, val)
   }
 
+  function changeAccent(e) {
+    e.stopPropagation()
+    const nextAccent = getNextAccent(accent)
+    updateCategory({ id, name, accent: nextAccent, tasks })
+  }
+
   return (
     <div className="bg-darkBlue transition-all hover:bg-darkBlueHover rounded-xl shadow-lg px-5 py-4  w-48 relative flex-shrink-0">
-      <div style={{ backgroundColor: accent }} className="h-3 w-3 rounded-full absolute right-2 top-2"></div>
+      <div onClick={changeAccent} style={{ backgroundColor: accent }} className="h-3 w-3 rounded-full absolute right-2 top-2"></div>
       <p className="text-fontAlt text-sm mb-1 select-none">
         {taskCount} {taskCount > 1 ? "tasks" : "task"} {getProgressPercentageRounded()}
       </p>
