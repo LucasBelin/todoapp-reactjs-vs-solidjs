@@ -3,15 +3,29 @@ import { useToggle } from "../../custom-hooks"
 import { Task } from "../../components"
 import { BsChevronDown } from "react-icons/bs"
 
-function Tasks({ data }) {
+function Tasks({ data, toggleTask }) {
+  const [accents, setAccents] = useState([])
   const [tasks, setTasks] = useState([])
   const [showCompleted, toggleShowCompleted] = useToggle(true)
   const [sortByMostRecent, toggleSortByMostRecent] = useToggle(true)
 
   useEffect(() => {
+    setAccents(getAccents())
     setTasks(getTasks())
     // eslint-disable-next-line
   }, [data, showCompleted, sortByMostRecent])
+
+  function getAccentFromId(categoryId) {
+    return accents.find((accent) => accent.id === categoryId).accent
+  }
+
+  function getAccents() {
+    const accents = []
+    data.forEach((category) => {
+      accents.push({ id: category.id, accent: category.accent })
+    })
+    return accents
+  }
 
   function getTasks() {
     let tasks = []
@@ -57,6 +71,22 @@ function Tasks({ data }) {
           <h3 className="text-white">You don't have any tasks</h3>
         </div>
       )}
+
+      <div className="flex flex-col gap-2 w-full overflow-y-scroll pb-1">
+        {tasks.map((task) => {
+          return (
+            <Task
+              key={task.id}
+              id={task.id}
+              categoryId={task.categoryId}
+              label={task.label}
+              completed={task.completed}
+              accent={getAccentFromId(task.categoryId)}
+              toggleTask={toggleTask}
+            />
+          )
+        })}
+      </div>
     </div>
   )
 }
