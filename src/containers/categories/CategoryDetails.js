@@ -5,7 +5,7 @@ import { TaskDetails } from "../../components"
 import { MdDelete } from "react-icons/md"
 import { AiFillPlusCircle } from "react-icons/ai"
 
-function CategoryDetails({ isOpen, close, details, toggleTask }) {
+function CategoryDetails({ isOpen, close, details, toggleTask, deleteTask }) {
   return (
     <div
       className={`${
@@ -25,8 +25,7 @@ function CategoryDetails({ isOpen, close, details, toggleTask }) {
 
       <div className="w-full flex flex-col gap-2 overflow-y-scroll flex-1">
         {details.tasks.map((task, idx) => {
-          console.log(task)
-          return <TaskDetails key={task.id} task={task} separator={idx < details.tasks.length - 1} toggleTask={() => {}} deleteTask={() => {}} />
+          return <TaskDetails key={task.id} task={task} separator={idx < details.tasks.length - 1} toggleTask={toggleTask} deleteTask={deleteTask} />
         })}
       </div>
     </div>

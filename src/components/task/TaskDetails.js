@@ -22,7 +22,7 @@ function TaskDetails({ task, separator, toggleTask, deleteTask }) {
             size={20}
             onClick={(e) => {
               e.stopPropagation()
-              deleteTask(task.id)
+              deleteTask(task.id, task.categoryId)
             }}
           />
         </div>

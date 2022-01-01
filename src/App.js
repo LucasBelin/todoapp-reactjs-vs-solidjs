@@ -34,6 +34,13 @@ function App() {
     setData([...data])
   }
 
+  function deleteTask(taskId, categoryId) {
+    const category = data.find((category) => category.id === categoryId)
+    category.tasks = [...category.tasks.filter((task) => task.id !== taskId)]
+    setData([...data])
+    setCurrentCategoryDetails(category)
+  }
+
   function openCategoryDetails(category) {
     toggleShowCategoryDetails(true)
     setCurrentCategoryDetails(category)
@@ -51,6 +58,7 @@ function App() {
         }}
         details={currentCategoryDetails}
         toggleTask={toggleTask}
+        deleteTask={deleteTask}
       />
     </div>
   )
