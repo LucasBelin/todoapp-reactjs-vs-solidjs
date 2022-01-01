@@ -8,7 +8,7 @@ import { AiOutlinePlus } from "react-icons/ai"
 import { v4 as uuid } from "uuid"
 
 function Categories({ data, setData, openCategoryDetails }) {
-  const [addModalIsOpen, toggleAddModalIsOpen] = useToggle(false)
+  const [addCategoryModalIsOpen, toggleAddCategoryModalIsOpen] = useToggle(false)
 
   function updateCategory(category) {
     const categoryIdx = data.findIndex((cat) => cat.id === category.id)
@@ -28,7 +28,7 @@ function Categories({ data, setData, openCategoryDetails }) {
       <div className="flex justify-between items-center">
         <h2 className="select-none uppercase text-fontAlt font-semibold tracking-wider">Categories</h2>
         <span
-          onClick={() => toggleAddModalIsOpen(true)}
+          onClick={() => toggleAddCategoryModalIsOpen(true)}
           className="bg-darkBlue hover:bg-darkBlueHover text-fontAlt text-sm rounded-full px-3 py-1 select-none"
         >
           Add category
@@ -37,7 +37,7 @@ function Categories({ data, setData, openCategoryDetails }) {
 
       {data.length === 0 && (
         <div
-          onClick={() => toggleAddModalIsOpen(true)}
+          onClick={() => toggleAddCategoryModalIsOpen(true)}
           className="flex gap-2 items-center self-start bg-darkBlue transition-all hover:bg-darkBlueHover rounded-xl shadow-lg px-4 py-2 mt-3"
         >
           <AiOutlinePlus color="white" size={22} />
@@ -61,7 +61,12 @@ function Categories({ data, setData, openCategoryDetails }) {
         })}
       </div>
 
-      <AddModal isOpen={addModalIsOpen} closeModal={() => toggleAddModalIsOpen(false)} inputPlaceholder="Category name" callback={addCategory} />
+      <AddModal
+        isOpen={addCategoryModalIsOpen}
+        closeModal={() => toggleAddCategoryModalIsOpen(false)}
+        inputPlaceholder="Category name"
+        callback={addCategory}
+      />
     </div>
   )
 }
