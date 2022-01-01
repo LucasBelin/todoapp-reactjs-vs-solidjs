@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react"
-import { useLocalStorage } from "./custom-hooks"
+import { useLocalStorage, useToggle } from "./custom-hooks"
 
 import { STORAGE_KEY, defaultData } from "./utils"
 
-import { Header, Tasks, Categories } from "./containers"
+import { Header, Tasks, Categories, CategoryDetails } from "./containers"
 
 function App() {
   const [data, setData] = useLocalStorage(STORAGE_KEY, defaultData)
   const [pendingTaskCount, setPendingTaskCount] = useState(0)
+
+  const [showCategoryDetails, toggleShowCategoryDetails] = useToggle(false)
+  const [currentCategoryDetails, setCurrentCategoryDetails] = useState({ id: 0, name: "", tasks: [] })
 
   useEffect(() => {
     setPendingTaskCount(getPendingTaskCount())
@@ -31,11 +34,24 @@ function App() {
     setData([...data])
   }
 
+  function openCategoryDetails(category) {
+    toggleShowCategoryDetails(true)
+    setCurrentCategoryDetails(category)
+  }
+
   return (
     <div className="min-h-screen px-3 pt-8 flex flex-col items-start gap-8 overflow-hidden relative bg-lightBlue">
       <Header pendingTaskCount={pendingTaskCount} />
-      <Categories data={data} setData={setData} />
+      <Categories data={data} setData={setData} openCategoryDetails={openCategoryDetails} />
       <Tasks data={data} toggleTask={toggleTask} />
+      <CategoryDetails
+        isOpen={showCategoryDetails}
+        close={() => {
+          toggleShowCategoryDetails(false)
+        }}
+        details={currentCategoryDetails}
+        toggleTask={toggleTask}
+      />
     </div>
   )
 }

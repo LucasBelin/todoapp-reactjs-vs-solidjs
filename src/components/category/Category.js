@@ -8,7 +8,7 @@ const PROGRESS_BAR_START_PX = 17
 const PROGRESS_BAR_END_PX = 170
 const PROGRESS_BAR_START_PERCENT = 0
 
-function Category({ id, name, accent, tasks, updateCategory }) {
+function Category({ id, name, accent, tasks, updateCategory, openCategoryDetails }) {
   const [taskCount, setTaskCount] = useState(tasks.length)
   const [taskCompletedCount, setTaskCompletedCount] = useState(tasks.filter((task) => task.completed).length)
 
@@ -49,7 +49,12 @@ function Category({ id, name, accent, tasks, updateCategory }) {
   }
 
   return (
-    <div className="bg-darkBlue transition-all hover:bg-darkBlueHover rounded-xl shadow-lg px-5 py-4  w-48 relative flex-shrink-0">
+    <div
+      onClick={() => {
+        openCategoryDetails({ id, name, tasks })
+      }}
+      className="bg-darkBlue transition-all hover:bg-darkBlueHover rounded-xl shadow-lg px-5 py-4  w-48 relative flex-shrink-0"
+    >
       <div onClick={changeAccent} style={{ backgroundColor: accent }} className="h-3 w-3 rounded-full absolute right-2 top-2"></div>
       <p className="text-fontAlt text-sm mb-1 select-none">
         {taskCount} {taskCount > 1 ? "tasks" : "task"} {getProgressPercentageRounded()}

@@ -7,7 +7,7 @@ import { getAccent } from "../../utils"
 import { AiOutlinePlus } from "react-icons/ai"
 import { v4 as uuid } from "uuid"
 
-function Categories({ data, setData }) {
+function Categories({ data, setData, openCategoryDetails }) {
   const [addModalIsOpen, toggleAddModalIsOpen] = useToggle(false)
 
   function updateCategory(category) {
@@ -55,6 +55,7 @@ function Categories({ data, setData }) {
               tasks={[...category.tasks]}
               accent={category.accent}
               updateCategory={updateCategory}
+              openCategoryDetails={openCategoryDetails}
             />
           )
         })}
