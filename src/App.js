@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useLocalStorage, useToggle } from "./custom-hooks"
+import { v4 as uuid } from "uuid"
 
 import { STORAGE_KEY, defaultData } from "./utils"
 
@@ -32,6 +33,14 @@ function App() {
     setData([...newData])
   }
 
+  function addTask(label, categoryId) {
+    if (label.length === 0) return
+    const category = data.find((category) => category.id === categoryId)
+    category.tasks.push({ id: uuid(), categoryId: categoryId, completed: false, date: new Date().toDateString(), label: label })
+    setData([...data])
+    setCurrentCategoryDetails({ id: categoryId, name: category.name, tasks: category.tasks })
+  }
+
   function toggleTask(taskId, categoryId) {
     const category = data.find((category) => category.id === categoryId)
     const task = category.tasks.find((task) => task.id === taskId)
@@ -58,11 +67,12 @@ function App() {
       <Tasks data={data} toggleTask={toggleTask} />
       <CategoryDetails
         isOpen={showCategoryDetails}
-        close={() => {
+        closeDetails={() => {
           toggleShowCategoryDetails(false)
         }}
         details={currentCategoryDetails}
         deleteCategory={deleteCategory}
+        addTask={addTask}
         toggleTask={toggleTask}
         deleteTask={deleteTask}
       />
