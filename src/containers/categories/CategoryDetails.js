@@ -5,7 +5,7 @@ import { TaskDetails } from "../../components"
 import { MdDelete } from "react-icons/md"
 import { AiFillPlusCircle } from "react-icons/ai"
 
-function CategoryDetails({ isOpen, close, details, toggleTask, deleteTask }) {
+function CategoryDetails({ isOpen, close, details, deleteCategory, toggleTask, deleteTask }) {
   return (
     <div
       className={`${
@@ -20,7 +20,14 @@ function CategoryDetails({ isOpen, close, details, toggleTask, deleteTask }) {
       <div className="my-8 flex items-center justify-center gap-4">
         <AiFillPlusCircle color="#ffffff" size={22} />
         <h1 className="uppercase text-white text-xl font-medium"> {details.name} </h1>
-        <MdDelete color="#ef4444" size={22} />
+        <MdDelete
+          onClick={() => {
+            deleteCategory(details.id)
+            close()
+          }}
+          color="#ef4444"
+          size={22}
+        />
       </div>
 
       <div className="w-full flex flex-col gap-2 overflow-y-scroll flex-1">

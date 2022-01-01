@@ -27,6 +27,11 @@ function App() {
     return count
   }
 
+  function deleteCategory(categoryId) {
+    const newData = data.filter((category) => category.id !== categoryId)
+    setData([...newData])
+  }
+
   function toggleTask(taskId, categoryId) {
     const category = data.find((category) => category.id === categoryId)
     const task = category.tasks.find((task) => task.id === taskId)
@@ -57,6 +62,7 @@ function App() {
           toggleShowCategoryDetails(false)
         }}
         details={currentCategoryDetails}
+        deleteCategory={deleteCategory}
         toggleTask={toggleTask}
         deleteTask={deleteTask}
       />
