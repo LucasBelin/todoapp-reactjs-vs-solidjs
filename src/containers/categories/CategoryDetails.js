@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback } from "react"
 
 import { TaskDetails, AddModal } from "../../components"
 import { useToggle } from "../../custom-hooks"
@@ -8,6 +8,19 @@ import { AiFillPlusCircle } from "react-icons/ai"
 
 function CategoryDetails({ isOpen, closeDetails, details, deleteCategory, addTask, toggleTask, deleteTask }) {
   const [addTaskModalIsOpen, toggleAddTaskModalIsOpen] = useToggle(false)
+
+  const handleOpenAddTaskModal = useCallback(() => {
+    toggleAddTaskModalIsOpen(true)
+  }, [toggleAddTaskModalIsOpen])
+
+  const handleCloseAddTaskModal = useCallback(() => {
+    toggleAddTaskModalIsOpen(false)
+  }, [toggleAddTaskModalIsOpen])
+
+  const handleDeleteCategory = useCallback(() => {
+    deleteCategory(details.id)
+    closeDetails()
+  }, [details, deleteCategory, closeDetails])
 
   function addTaskToCategory(taskLabel) {
     addTask(taskLabel, details.id)
@@ -25,22 +38,9 @@ function CategoryDetails({ isOpen, closeDetails, details, deleteCategory, addTas
       </div>
 
       <div className="my-8 flex items-center justify-center gap-4">
-        <AiFillPlusCircle
-          onClick={() => {
-            toggleAddTaskModalIsOpen(true)
-          }}
-          color="#ffffff"
-          size={22}
-        />
+        <AiFillPlusCircle onClick={handleOpenAddTaskModal} color="#ffffff" size={22} />
         <h1 className="uppercase text-white text-xl font-medium"> {details.name} </h1>
-        <MdDelete
-          onClick={() => {
-            deleteCategory(details.id)
-            closeDetails()
-          }}
-          color="#ef4444"
-          size={22}
-        />
+        <MdDelete onClick={handleDeleteCategory} color="#ef4444" size={22} />
       </div>
 
       <div className="w-full flex flex-col gap-2 overflow-y-scroll flex-1">
@@ -51,9 +51,7 @@ function CategoryDetails({ isOpen, closeDetails, details, deleteCategory, addTas
 
       <AddModal
         isOpen={addTaskModalIsOpen}
-        closeModal={() => {
-          toggleAddTaskModalIsOpen(false)
-        }}
+        closeModal={handleCloseAddTaskModal}
         inputPlaceholder="Task description"
         callback={addTaskToCategory}
         categoryId={details.id}

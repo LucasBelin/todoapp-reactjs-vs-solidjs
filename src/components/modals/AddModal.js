@@ -1,9 +1,15 @@
-import React, { useRef } from "react"
+import React, { useRef, useCallback } from "react"
 import Modal from "./Modal"
 import { AiOutlineClose } from "react-icons/ai"
 
 function AddModal({ isOpen, closeModal, inputPlaceholder, callback }) {
   const labelRef = useRef()
+
+  const handleAdd = useCallback(() => {
+    callback(labelRef.current.value)
+    labelRef.current.value = ""
+    closeModal()
+  }, [callback, closeModal])
 
   return (
     <Modal isOpen={isOpen}>
@@ -19,14 +25,7 @@ function AddModal({ isOpen, closeModal, inputPlaceholder, callback }) {
               placeholder={inputPlaceholder}
               className="bg-transparent border-0 border-b placeholder-gray-300 placeholder-opacity-70 outline-none text-white"
             />
-            <button
-              onClick={() => {
-                callback(labelRef.current.value)
-                labelRef.current.value = ""
-                closeModal()
-              }}
-              className="self-center bg-lightBlue text-white rounded-md px-3 py-1"
-            >
+            <button onClick={handleAdd} className="self-center bg-lightBlue text-white rounded-md px-3 py-1">
               add
             </button>
           </div>
