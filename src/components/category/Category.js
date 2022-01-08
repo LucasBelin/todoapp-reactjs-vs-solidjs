@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 
 import { getNextAccent } from "../../utils"
 
@@ -14,6 +14,10 @@ function Category({ id, name, accent, tasks, updateCategory, openCategoryDetails
 
   const [progressPercent, setProgressPercent] = useState(PROGRESS_BAR_START_PERCENT + "%")
   const [progressBarPos, setProgressBarPos] = useState(PROGRESS_BAR_START_PX + "px")
+
+  const handleOpenCategoryDetails = useCallback(() => {
+    openCategoryDetails({ id, name, tasks })
+  }, [id, name, tasks, openCategoryDetails])
 
   useEffect(() => {
     const completed = tasks.filter((task) => task.completed).length
@@ -50,9 +54,7 @@ function Category({ id, name, accent, tasks, updateCategory, openCategoryDetails
 
   return (
     <div
-      onClick={() => {
-        openCategoryDetails({ id, name, tasks })
-      }}
+      onClick={handleOpenCategoryDetails}
       className="bg-darkBlue transition-all hover:bg-darkBlueHover rounded-xl shadow-lg px-5 py-4  w-48 relative flex-shrink-0"
     >
       <div onClick={changeAccent} style={{ backgroundColor: accent }} className="h-3 w-3 rounded-full absolute right-2 top-2"></div>
