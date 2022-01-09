@@ -5,11 +5,10 @@ import { AiOutlineClose } from "react-icons/ai"
 function AddModal({ isOpen, closeModal, inputPlaceholder, callback }) {
   const labelRef = useRef()
 
-  const handleAdd = useCallback(() => {
+  const handleAddTask = useCallback(() => {
     callback(labelRef.current.value)
     labelRef.current.value = ""
-    closeModal()
-  }, [callback, closeModal])
+  }, [callback])
 
   return (
     <Modal isOpen={isOpen}>
@@ -25,7 +24,7 @@ function AddModal({ isOpen, closeModal, inputPlaceholder, callback }) {
               placeholder={inputPlaceholder}
               className="bg-transparent border-0 border-b placeholder-gray-300 placeholder-opacity-70 outline-none text-white"
             />
-            <button onClick={handleAdd} className="self-center bg-lightBlue text-white rounded-md px-3 py-1">
+            <button onClick={handleAddTask} className="self-center bg-lightBlue text-white rounded-md px-3 py-1">
               add
             </button>
           </div>
