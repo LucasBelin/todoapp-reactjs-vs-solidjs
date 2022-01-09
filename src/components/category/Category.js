@@ -42,8 +42,8 @@ function Category({ id, name, accent, tasks, updateCategory, openCategoryDetails
   function getProgressBarPosition() {
     if (tasks.length === 0) return PROGRESS_BAR_START_PX + "px"
     if (taskCompletedCount === tasks.length) return PROGRESS_BAR_END_PX - 1 + "px"
-    const val = (taskCompletedCount / taskCount) * (PROGRESS_BAR_END_PX - (PROGRESS_BAR_START_PX - 1)) + (PROGRESS_BAR_START_PX - 1)
-    return Math.max(PROGRESS_BAR_START_PX, val)
+    const progressPx = (taskCompletedCount / taskCount) * (PROGRESS_BAR_END_PX - (PROGRESS_BAR_START_PX - 1)) + (PROGRESS_BAR_START_PX - 1)
+    return Math.max(PROGRESS_BAR_START_PX, progressPx)
   }
 
   function changeAccent(e) {
@@ -67,4 +67,5 @@ function Category({ id, name, accent, tasks, updateCategory, openCategoryDetails
     </div>
   )
 }
+
 export default Category

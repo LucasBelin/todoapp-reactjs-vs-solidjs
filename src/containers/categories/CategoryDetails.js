@@ -1,6 +1,6 @@
 import React, { useCallback } from "react"
 
-import { TaskDetails, AddModal } from "../../components"
+import { TaskDetails, AddModal, DeleteCategoryModal } from "../../components"
 import { useToggle } from "../../custom-hooks"
 
 import { MdDelete } from "react-icons/md"
@@ -8,6 +8,7 @@ import { AiFillPlusCircle } from "react-icons/ai"
 
 function CategoryDetails({ isOpen, closeDetails, details, deleteCategory, addTask, toggleTask, deleteTask }) {
   const [addTaskModalIsOpen, toggleAddTaskModalIsOpen] = useToggle(false)
+  const [deleteCategoryModalIsOpen, toggleDeleteCategoryModalIsOpen] = useToggle(false)
 
   const handleOpenAddTaskModal = useCallback(() => {
     toggleAddTaskModalIsOpen(true)
@@ -17,10 +18,19 @@ function CategoryDetails({ isOpen, closeDetails, details, deleteCategory, addTas
     toggleAddTaskModalIsOpen(false)
   }, [toggleAddTaskModalIsOpen])
 
+  const handleOpenAddCategoryModal = useCallback(() => {
+    toggleDeleteCategoryModalIsOpen(true)
+  }, [toggleDeleteCategoryModalIsOpen])
+
+  const handleCloseDeleteCategoryModal = useCallback(() => {
+    toggleDeleteCategoryModalIsOpen(false)
+  }, [toggleDeleteCategoryModalIsOpen])
+
   const handleDeleteCategory = useCallback(() => {
+    toggleDeleteCategoryModalIsOpen(false)
     deleteCategory(details.id)
     closeDetails()
-  }, [details, deleteCategory, closeDetails])
+  }, [details, toggleDeleteCategoryModalIsOpen, deleteCategory, closeDetails])
 
   function addTaskToCategory(taskLabel) {
     addTask(taskLabel, details.id)
@@ -40,7 +50,7 @@ function CategoryDetails({ isOpen, closeDetails, details, deleteCategory, addTas
       <div className="my-8 flex items-center justify-center gap-4">
         <AiFillPlusCircle onClick={handleOpenAddTaskModal} color="#ffffff" size={22} />
         <h1 className="uppercase text-white text-xl font-medium"> {details.name} </h1>
-        <MdDelete onClick={handleDeleteCategory} color="#ef4444" size={22} />
+        <MdDelete onClick={handleOpenAddCategoryModal} color="#ef4444" size={22} />
       </div>
 
       <div className="w-full flex flex-col gap-2 overflow-y-scroll flex-1">
@@ -56,6 +66,8 @@ function CategoryDetails({ isOpen, closeDetails, details, deleteCategory, addTas
         callback={addTaskToCategory}
         categoryId={details.id}
       />
+
+      <DeleteCategoryModal isOpen={deleteCategoryModalIsOpen} closeModal={handleCloseDeleteCategoryModal} deleteCategory={handleDeleteCategory} />
     </div>
   )
 }
