@@ -1,4 +1,4 @@
-const accents = ["#A300F0", "#3577E1", "#24F000", "#F08800", "#F00000", "#F000F0", "#00ECF0"]
+const accents = ["#A300F0", "#3577E1", "#C80000", "#00C800", "#C86400", "#5856c4"]
 
 export function getAccent(idx) {
   //Get random accent
