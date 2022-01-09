@@ -2,7 +2,7 @@ import React, { useRef, useCallback } from "react"
 import Modal from "./Modal"
 import { AiOutlineClose } from "react-icons/ai"
 
-function AddModal({ isOpen, closeModal, inputPlaceholder, callback }) {
+function ModalAdd({ isOpen, closeModal, inputPlaceholder, callback }) {
   const labelRef = useRef()
 
   const handleAddTask = useCallback(() => {
@@ -34,4 +34,4 @@ function AddModal({ isOpen, closeModal, inputPlaceholder, callback }) {
   )
 }
 
-export default AddModal
+export default ModalAdd

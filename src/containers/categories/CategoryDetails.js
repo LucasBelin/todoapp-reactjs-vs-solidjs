@@ -1,14 +1,14 @@
 import React, { useCallback } from "react"
 
-import { TaskDetails, AddModal, DeleteCategoryModal } from "../../components"
+import { TaskDetails, ModalAdd, ModalDeleteCategory } from "../../components"
 import { useToggle } from "../../custom-hooks"
 
 import { MdDelete } from "react-icons/md"
 import { AiFillPlusCircle } from "react-icons/ai"
 
 function CategoryDetails({ isOpen, closeDetails, details, deleteCategory, addTask, toggleTask, deleteTask }) {
-  const [addTaskModalIsOpen, toggleAddTaskModalIsOpen] = useToggle(false)
-  const [deleteCategoryModalIsOpen, toggleDeleteCategoryModalIsOpen] = useToggle(false)
+  const [modalAddTaskIsOpen, toggleModalAddTaskIsOpen] = useToggle(false)
+  const [modalDeleteCategoryIsOpen, toggleModalDeleteCategoryIsOpen] = useToggle(false)
 
   const handleAddTask = useCallback(
     (taskLabel) => {
@@ -18,26 +18,26 @@ function CategoryDetails({ isOpen, closeDetails, details, deleteCategory, addTas
   )
 
   const handleOpenAddTaskModal = useCallback(() => {
-    toggleAddTaskModalIsOpen(true)
-  }, [toggleAddTaskModalIsOpen])
+    toggleModalAddTaskIsOpen(true)
+  }, [toggleModalAddTaskIsOpen])
 
   const handleCloseAddTaskModal = useCallback(() => {
-    toggleAddTaskModalIsOpen(false)
-  }, [toggleAddTaskModalIsOpen])
+    toggleModalAddTaskIsOpen(false)
+  }, [toggleModalAddTaskIsOpen])
 
   const handleOpenAddCategoryModal = useCallback(() => {
-    toggleDeleteCategoryModalIsOpen(true)
-  }, [toggleDeleteCategoryModalIsOpen])
+    toggleModalDeleteCategoryIsOpen(true)
+  }, [toggleModalDeleteCategoryIsOpen])
 
   const handleCloseDeleteCategoryModal = useCallback(() => {
-    toggleDeleteCategoryModalIsOpen(false)
-  }, [toggleDeleteCategoryModalIsOpen])
+    toggleModalDeleteCategoryIsOpen(false)
+  }, [toggleModalDeleteCategoryIsOpen])
 
   const handleDeleteCategory = useCallback(() => {
-    toggleDeleteCategoryModalIsOpen(false)
+    toggleModalDeleteCategoryIsOpen(false)
     deleteCategory(details.id)
     closeDetails()
-  }, [details, toggleDeleteCategoryModalIsOpen, deleteCategory, closeDetails])
+  }, [details, toggleModalDeleteCategoryIsOpen, deleteCategory, closeDetails])
 
   return (
     <div
@@ -62,9 +62,9 @@ function CategoryDetails({ isOpen, closeDetails, details, deleteCategory, addTas
         })}
       </div>
 
-      <AddModal isOpen={addTaskModalIsOpen} closeModal={handleCloseAddTaskModal} inputPlaceholder="Task description" callback={handleAddTask} />
+      <ModalAdd isOpen={modalAddTaskIsOpen} closeModal={handleCloseAddTaskModal} inputPlaceholder="Task description" callback={handleAddTask} />
 
-      <DeleteCategoryModal isOpen={deleteCategoryModalIsOpen} closeModal={handleCloseDeleteCategoryModal} deleteCategory={handleDeleteCategory} />
+      <ModalDeleteCategory isOpen={modalDeleteCategoryIsOpen} closeModal={handleCloseDeleteCategoryModal} deleteCategory={handleDeleteCategory} />
     </div>
   )
 }

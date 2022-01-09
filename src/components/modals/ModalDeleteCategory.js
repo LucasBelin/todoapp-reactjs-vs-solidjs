@@ -1,7 +1,7 @@
 import React from "react"
 import Modal from "./Modal"
 
-function DeleteyCategoryModal({ isOpen, closeModal, deleteCategory }) {
+function ModalDeleteCategory({ isOpen, closeModal, deleteCategory }) {
   return (
     <Modal isOpen={isOpen}>
       <div className="absolute left-0 top-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-90 rounded-t-3xl">
@@ -23,4 +23,4 @@ function DeleteyCategoryModal({ isOpen, closeModal, deleteCategory }) {
   )
 }
 
-export default DeleteyCategoryModal
+export default ModalDeleteCategory
