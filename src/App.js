@@ -61,7 +61,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen px-3 pt-8 flex flex-col items-start gap-8 overflow-hidden relative bg-lightBlue">
+    <div className="h-screen px-3 pt-8 flex flex-col items-start gap-8 overflow-hidden relative bg-lightBlue">
       <Header pendingTaskCount={pendingTaskCount} />
       <Categories data={data} setData={setData} openCategoryDetails={openCategoryDetails} />
       <Tasks data={data} toggleTask={toggleTask} />
