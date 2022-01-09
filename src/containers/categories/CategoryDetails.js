@@ -50,9 +50,9 @@ function CategoryDetails({ isOpen, closeDetails, details, deleteCategory, addTas
         <div className="bg-white h-px w-6"></div>
       </div>
 
-      <div className="my-8 flex items-center justify-center gap-4">
+      <div className="my-8 flex items-center justify-center gap-4 truncate">
         <AiFillPlusCircle onClick={handleOpenAddTaskModal} color="#ffffff" size={22} />
-        <h1 className="uppercase text-white text-xl font-medium"> {details.name} </h1>
+        <h1 className="uppercase text-white text-xl font-medium max-w-[20ch] truncate"> {details.name} </h1>
         <MdDelete onClick={handleOpenAddCategoryModal} color="#ef4444" size={22} />
       </div>
 
