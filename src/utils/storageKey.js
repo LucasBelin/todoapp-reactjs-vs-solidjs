@@ -1,2 +1,2 @@
-const STORAGE_KEY = "todo-data"
+const STORAGE_KEY = "todoapp-react-data"
 export default STORAGE_KEY
