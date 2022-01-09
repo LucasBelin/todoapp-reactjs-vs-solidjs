@@ -10,6 +10,13 @@ function CategoryDetails({ isOpen, closeDetails, details, deleteCategory, addTas
   const [addTaskModalIsOpen, toggleAddTaskModalIsOpen] = useToggle(false)
   const [deleteCategoryModalIsOpen, toggleDeleteCategoryModalIsOpen] = useToggle(false)
 
+  const handleAddTask = useCallback(
+    (taskLabel) => {
+      addTask(taskLabel, details.id)
+    },
+    [details, addTask],
+  )
+
   const handleOpenAddTaskModal = useCallback(() => {
     toggleAddTaskModalIsOpen(true)
   }, [toggleAddTaskModalIsOpen])
@@ -31,10 +38,6 @@ function CategoryDetails({ isOpen, closeDetails, details, deleteCategory, addTas
     deleteCategory(details.id)
     closeDetails()
   }, [details, toggleDeleteCategoryModalIsOpen, deleteCategory, closeDetails])
-
-  function addTaskToCategory(taskLabel) {
-    addTask(taskLabel, details.id)
-  }
 
   return (
     <div
@@ -59,13 +62,7 @@ function CategoryDetails({ isOpen, closeDetails, details, deleteCategory, addTas
         })}
       </div>
 
-      <AddModal
-        isOpen={addTaskModalIsOpen}
-        closeModal={handleCloseAddTaskModal}
-        inputPlaceholder="Task description"
-        callback={addTaskToCategory}
-        categoryId={details.id}
-      />
+      <AddModal isOpen={addTaskModalIsOpen} closeModal={handleCloseAddTaskModal} inputPlaceholder="Task description" callback={handleAddTask} />
 
       <DeleteCategoryModal isOpen={deleteCategoryModalIsOpen} closeModal={handleCloseDeleteCategoryModal} deleteCategory={handleDeleteCategory} />
     </div>
