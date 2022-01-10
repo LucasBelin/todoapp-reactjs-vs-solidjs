@@ -17,19 +17,19 @@ function CategoryDetails({ isOpen, closeDetails, details, deleteCategory, addTas
     [details, addTask],
   )
 
-  const handleOpenAddTaskModal = useCallback(() => {
+  const handleOpenModalAddTask = useCallback(() => {
     toggleModalAddTaskIsOpen(true)
   }, [toggleModalAddTaskIsOpen])
 
-  const handleCloseAddTaskModal = useCallback(() => {
+  const handleCloseModalAddTask = useCallback(() => {
     toggleModalAddTaskIsOpen(false)
   }, [toggleModalAddTaskIsOpen])
 
-  const handleOpenAddCategoryModal = useCallback(() => {
+  const handleOpenModalAddCategory = useCallback(() => {
     toggleModalDeleteCategoryIsOpen(true)
   }, [toggleModalDeleteCategoryIsOpen])
 
-  const handleCloseDeleteCategoryModal = useCallback(() => {
+  const handleCloseModalDeleteCategory = useCallback(() => {
     toggleModalDeleteCategoryIsOpen(false)
   }, [toggleModalDeleteCategoryIsOpen])
 
@@ -51,9 +51,9 @@ function CategoryDetails({ isOpen, closeDetails, details, deleteCategory, addTas
       </div>
 
       <div className="my-8 flex items-center justify-center gap-4 truncate">
-        <AiFillPlusCircle onClick={handleOpenAddTaskModal} color="#ffffff" size={22} />
+        <AiFillPlusCircle onClick={handleOpenModalAddTask} color="#ffffff" size={22} />
         <h1 className="uppercase text-white text-xl font-medium max-w-[20ch] truncate"> {details.name} </h1>
-        <MdDelete onClick={handleOpenAddCategoryModal} color="#ef4444" size={22} />
+        <MdDelete onClick={handleOpenModalAddCategory} color="#ef4444" size={22} />
       </div>
 
       <div className="w-full flex flex-col gap-2 overflow-y-scroll flex-1">
@@ -62,9 +62,9 @@ function CategoryDetails({ isOpen, closeDetails, details, deleteCategory, addTas
         })}
       </div>
 
-      <ModalAdd isOpen={modalAddTaskIsOpen} closeModal={handleCloseAddTaskModal} inputPlaceholder="Task description" callback={handleAddTask} />
+      <ModalAdd isOpen={modalAddTaskIsOpen} closeModal={handleCloseModalAddTask} inputPlaceholder="Task description" callback={handleAddTask} />
 
-      <ModalDeleteCategory isOpen={modalDeleteCategoryIsOpen} closeModal={handleCloseDeleteCategoryModal} deleteCategory={handleDeleteCategory} />
+      <ModalDeleteCategory isOpen={modalDeleteCategoryIsOpen} closeModal={handleCloseModalDeleteCategory} deleteCategory={handleDeleteCategory} />
     </div>
   )
 }
