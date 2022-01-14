@@ -1,6 +1,6 @@
 # React Todo App
 
-This is a simple todo app where you can organize your tasks into categories. Tasks can be sorted by most/least recently added and you can show or hide completed tasks.
+This is a simple todo app where you can organize your tasks into categories. Each category a changeable accent color. Tasks can be sorted by most/least recently added and you can show or hide completed tasks.
 Data is saved in local storage.
 
 Inspiration for the UI comes from [here](https://dribbble.com/shots/14153121-ToDo-App-Dark-Theme).
