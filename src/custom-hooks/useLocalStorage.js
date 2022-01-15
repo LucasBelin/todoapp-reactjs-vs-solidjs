@@ -11,9 +11,10 @@ function getSavedValue(key, initialValue) {
 export default function useLocalStorage(key, initialValue) {
   const [value, setValue] = createSignal(getSavedValue(key, initialValue))
 
-  createEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value()))
-  }, [key, value])
+  const saveValueToLocaStorage = (newValue) => {
+    localStorage.setItem(key, JSON.stringify(newValue))
+    setValue(newValue)
+  }
 
-  return [value, setValue]
+  return [value, saveValueToLocaStorage]
 }
