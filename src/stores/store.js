@@ -1,5 +1,5 @@
 import { useLocalStorage } from "../custom-hooks"
-import { STORAGE_KEY, defaultData } from "../utils"
+import { STORAGE_KEY, defaultData, getAccent } from "../utils"
 import { v4 as uuid } from "uuid"
 
 export const [data, setData] = useLocalStorage(STORAGE_KEY, defaultData)
