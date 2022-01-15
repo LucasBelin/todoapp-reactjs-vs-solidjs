@@ -1,7 +1,12 @@
+import { Header, Categories, Tasks, CategoryDetails } from "./containers"
+
 function App() {
   return (
-    <div class="flex flex-col h-screen items-center justify-center">
-      <h1 class="text-green-500 text-3xl">Hello world</h1>
+    <div class="h-screen px-3 pt-8 flex flex-col items-start gap-8 overflow-hidden relative bg-lightBlue">
+      <Header />
+      <Categories />
+      <Tasks />
+      <CategoryDetails />
     </div>
   )
 }
